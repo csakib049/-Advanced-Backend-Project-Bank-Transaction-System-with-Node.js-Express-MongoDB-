@@ -1,0 +1,25 @@
+{
+  "name": "-advanced-backend-project-bank-transaction-system-with-node.js-express-mongodb-",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csakib049/-Advanced-Backend-Project-Bank-Transaction-System-with-Node.js-Express-MongoDB-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/csakib049/-Advanced-Backend-Project-Bank-Transaction-System-with-Node.js-Express-MongoDB-/issues"
+  },
+  "homepage": "https://github.com/csakib049/-Advanced-Backend-Project-Bank-Transaction-System-with-Node.js-Express-MongoDB-#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}
