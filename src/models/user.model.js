@@ -27,26 +27,32 @@ const userSchema = new mongoose.Schema({
         minlength: [6, "password should contain more than 6 character."],
         select: false
     },
+    systemUser: {
+        type: Boolean,
+        default: false,
+        immutable: true,
+        select: false
+    }
 }, {
     timestamps: true
 });
 
 
 
-userSchema.pre("save",async function (next) {
+userSchema.pre("save", async function (next) {
 
     //if password is not changed or  not modified --> next()
-    if(!this.isModified("password")){
-        return 
+    if (!this.isModified("password")) {
+        return
     }
 
 
     // if password is changed then save  the hashed form into this.password
-    const hash = await bcrypt.hash(this.password,10);
-     this.password = hash;
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
 
 
-    return 
+    return
 })
 
 
@@ -56,11 +62,11 @@ userSchema.pre("save",async function (next) {
 userSchema.methods.comparePassword = async function (password) {
 
 
-    return await bcrypt.compare(password,this.password);
+    return await bcrypt.compare(password, this.password);
 };
 
 
 
-const userModel = mongoose.model("User",userSchema);
+const userModel = mongoose.model("User", userSchema);
 
 module.exports = userModel;

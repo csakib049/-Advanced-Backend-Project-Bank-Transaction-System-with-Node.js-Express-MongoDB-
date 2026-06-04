@@ -112,8 +112,171 @@ Backend Ledger Team
 }
 
 
+async function sendTransactionEmail(
+  userEmail,
+  name,
+  amount,
+  toAccount
+) {
+  const subject = "Transaction Successful! 💸";
+
+  const text = `
+Hi ${name},
+
+Your transaction has been completed successfully.
+
+Amount: ${amount}
+Recipient Account: ${toAccount}
+
+Thank you for using Backend Ledger.
+
+Backend Ledger Team
+`;
+
+  const html = `
+    <div style="
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+    ">
+
+      <h2 style="color:#16a34a;">
+        Transaction Successful 💸
+      </h2>
+
+      <p>
+        Hi <strong>${name}</strong>,
+      </p>
+
+      <p>
+        Your transaction has been completed successfully.
+      </p>
+
+      <div style="
+        background:#f8fafc;
+        padding:15px;
+        border-radius:8px;
+        margin:15px 0;
+      ">
+        <p><strong>Amount:</strong> ${amount}</p>
+        <p><strong>Recipient Account:</strong> ${toAccount}</p>
+      </div>
+
+      <p>
+        Thank you for using Backend Ledger.
+      </p>
+
+      <hr />
+
+      <p style="
+        font-size:14px;
+        color:gray;
+      ">
+        Backend Ledger Team
+      </p>
+
+    </div>
+  `;
+
+  await sendEmail(
+    userEmail,
+    subject,
+    text,
+    html
+  );
+}
+
+
+async function sendTransactionFailureEmail(
+  userEmail,
+  name,
+  amount,
+  toAccount
+) {
+  const subject = "Transaction Failed ❌";
+
+  const text = `
+Hi ${name},
+
+Unfortunately, your transaction could not be completed.
+
+Amount: ${amount}
+Recipient Account: ${toAccount}
+
+No funds have been transferred.
+
+Please try again later or contact support if the problem persists.
+
+Backend Ledger Team
+`;
+
+  const html = `
+    <div style="
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+    ">
+
+      <h2 style="color:#dc2626;">
+        Transaction Failed ❌
+      </h2>
+
+      <p>
+        Hi <strong>${name}</strong>,
+      </p>
+
+      <p>
+        Unfortunately, your transaction could not be completed.
+      </p>
+
+      <div style="
+        background:#fef2f2;
+        padding:15px;
+        border-radius:8px;
+        margin:15px 0;
+      ">
+        <p><strong>Amount:</strong> ${amount}</p>
+        <p><strong>Recipient Account:</strong> ${toAccount}</p>
+      </div>
+
+      <p>
+        No funds have been transferred.
+      </p>
+
+      <p>
+        Please try again later or contact support if the problem persists.
+      </p>
+
+      <hr />
+
+      <p style="
+        font-size:14px;
+        color:gray;
+      ">
+        Backend Ledger Team
+      </p>
+
+    </div>
+  `;
+
+  await sendEmail(
+    userEmail,
+    subject,
+    text,
+    html
+  );
+}
+
 
 
 module.exports = {
-    sendRegistrationEmail
+    sendRegistrationEmail,
+    sendTransactionEmail,
+    sendTransactionFailureEmail
 };
