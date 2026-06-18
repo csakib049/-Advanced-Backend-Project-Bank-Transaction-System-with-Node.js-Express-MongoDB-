@@ -21,11 +21,7 @@ async function userRegisterController(req, res) {
     }
 
     //create account
-    const user = await userModel.create({
-        email,
-        password,
-        name,
-    });
+    const user = await userModel.create({ email, password,name});
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
         expiresIn: "3d",
