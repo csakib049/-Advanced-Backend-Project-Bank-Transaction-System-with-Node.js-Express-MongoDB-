@@ -58,7 +58,7 @@ async function createTransaction(req, res) {
 
     //2.Validate idempotency key 
 
-    
+
     const isTransacrionAlreadyExists = await transactionModel.findOne({
         idempotencyKey: idempotencyKey  //A unique key sent with a request to ensure the same operation isn't applied twice.
     })
@@ -233,15 +233,13 @@ async function createInitialFundsTransaction(req, res) {
     const session = await mongoose.startSession()
     session.startTransaction()
 
-        const transaction = (await transactionModel.create([{
+    const transaction = (await transactionModel.create([{
         fromAccount: fromUserAccount._id,
         toAccount,
         amount,
         idempotencyKey,
         status: "PENDING"
     }], { session }))[0]
-
-
 
 
     // const transaction = new transactionModel.create({
@@ -277,6 +275,11 @@ async function createInitialFundsTransaction(req, res) {
     }], { session })
 
 
+    await transactionModel.findOneAndUpdate(
+        { _id: transaction._id },
+        { status: "COMPLETED" },
+        { session }
+    )
 
     transaction.status = "COMPLETED"
     await transaction.save({ session })
